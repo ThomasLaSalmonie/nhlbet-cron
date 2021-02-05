@@ -1,0 +1,28 @@
+version: v1.0
+name: Deployment
+blocks:
+  - name: Deploy
+    task:
+      secrets:
+        - name: nhlbet_secret
+      prologue:
+        commands:
+          - gcloud auth activate-service-account --key-file=.secrets/gcp.json
+          - gcloud auth configure-docker -q
+          - checkout
+      jobs:
+        - name: Deployment
+          commands:
+            - checkout
+            - sem-version node 12
+            - source ./ci/env-prod
+            - docker build -t megaswords-gameapi .
+            - 'docker tag megaswords-gameapi gcr.io/megaswords/gameapi:$SEMAPHORE_WORKFLOW_ID'
+            - docker push gcr.io/megaswords/gameapi
+            - source ./ci/setup
+            - source ./ci/migrate
+            - source ./ci/deploy
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804

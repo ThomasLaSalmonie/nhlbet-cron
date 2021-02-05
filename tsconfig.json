@@ -1,0 +1,28 @@
+{
+    "strict": true,
+    "compileOnSave": true,
+    "compilerOptions": {
+        "noImplicitAny": false,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "esModuleInterop": false,
+        "module": "commonjs",
+        "target": "es5",
+        "lib": [
+            "es2017"
+        ],
+        "types": [
+            "node"
+        ],
+        "sourceMap": true,
+        "baseUrl": "./src"
+    },
+    "exclude": [
+        "**/*.spec.ts"
+    ],
+    "include": [
+        "src/**/*",
+        "node_modules/@types"
+    ]
+}

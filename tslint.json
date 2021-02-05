@@ -1,0 +1,61 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier"
+  ],
+  "jsRules": {
+    "max-line-length": {
+      "options": [
+        120
+      ]
+    }
+  },
+  "rules": {
+    "max-line-length": {
+      "options": [
+        120
+      ]
+    },
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "allow-trailing-underscore",
+      "allow-pascal-case",
+      "allow-snake-case",
+      "ban-keywords"
+    ],
+    "radix": false,
+    "indent": [
+      true,
+      "tabs",
+      4
+    ],
+    "ordered-imports": false,
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "new-parens": true,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true,
+    "no-consecutive-blank-lines": false,
+    "object-literal-sort-keys": false,
+    "no-var-requires": false,
+    "no-debugger": false,
+    "no-string-literal": false,
+    "no-console": {
+      "options": [
+        "debug",
+        "info",
+        "log",
+        "time",
+        "timeEnd",
+        "trace"
+      ]
+    }
+  },
+  "rulesDirectory": []
+}

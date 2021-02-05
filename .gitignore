@@ -1,0 +1,13 @@
+.DS_Store
+.env
+.env-*
+.tags*
+.vscode
+*.yaml
+/csv/out
+apidoc
+artillery.yml
+coverage
+node_modules
+npm-debug.log
+yarn-error.log

@@ -1,0 +1,79 @@
+{
+  "name": "nhlbet-feed",
+  "version": "0.1.0",
+  "description": "Gameon feed with koa.js",
+  "repository": "TODO:",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "dev": "nodemon",
+    "test": "NODE_PATH=src NODE_ENV=test jest --forceExit --runInBand",
+    "test-coverage": "NODE_PATH=src NODE_ENV=test jest --forceExit --coverage",
+    "start": "NODE_PATH=src ts-node -r ./src/server.ts",
+    "csv-export": "NODE_PATH=src ts-node ./csv/export.ts"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@sentry/node": "^5.25.0",
+    "@types/dotenv": "^6.1.1",
+    "@types/lodash": "^4.14.161",
+    "@types/mysql2": "types/mysql2",
+    "@types/node": "^14.11.2",
+    "axios": "^0.20.0",
+    "dotenv": "^8.2.0",
+    "entities": "^2.1.0",
+    "html-to-text": "^5.1.1",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^9.4.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.0",
+    "mysql2": "^2.2.5",
+    "nodemailer": "^6.4.13",
+    "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.3",
+    "winston": "^3.x"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.14",
+    "@types/mocha": "^8.0.3",
+    "@types/supertest": "^2.0.10",
+    "jest": "^26.5.0",
+    "nodemon": "^2.0.4",
+    "supertest": "^5.0.0",
+    "ts-jest": "^26.4.1",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/tests/*/*.+(ts|tsx|js)"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/helpers/apiResponse.ts",
+      "src/services/db.ts",
+      "src/services/logger.ts",
+      "src/services/mail.ts",
+      "src/services/sentry.ts"
+    ],
+    "verbose": true
+  }
+}

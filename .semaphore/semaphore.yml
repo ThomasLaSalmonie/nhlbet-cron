@@ -1,0 +1,22 @@
+version: v1.0
+name: Nhlbet api
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+blocks:
+  - name: Test
+    task:
+      jobs:
+        - name: Lint and test
+          commands:
+            - checkout
+            - sem-version node 12
+            - cache restore
+            - yarn install
+            - yarn lint
+            - cache store
+            - yarn test
+promotions:
+  - name: Deployment
+    pipeline_file: deployment.yml
