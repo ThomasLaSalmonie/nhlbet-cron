@@ -30,5 +30,6 @@ app
 	.use(routes.allowedMethods())
 	.listen(process.env.APP_PORT);
 
+// tslint:disable-next-line:no-console
 console.log(`App start on port: ${process.env.APP_PORT}`);
 export default app;
