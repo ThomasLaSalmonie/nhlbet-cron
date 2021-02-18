@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+  local namespace=default
+
+  sed -ie "s/__REVISION__/$SEMAPHORE_WORKFLOW_ID/g" k8s/__CLUSTERENV__/deployment.yml
+
+  kubectl apply -f k8s/__CLUSTERENV__/deployment.yml --namespace "${namespace}"
+
+  kubectl get pods --namespace "${namespace}"
+}
+
+main "$@"
