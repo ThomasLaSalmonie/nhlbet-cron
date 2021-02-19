@@ -7,8 +7,10 @@ class GameService {
 			updated: 0,
 		};
 		for (const game of games) {
-			const existingGame = await Game.getByPkId(game.gamePk);
-			const seasonId = await Game.getSeason(game.season);
+			const [existingGame, seasonId] = await Promise.all([
+				Game.getByPkId(game.gamePk),
+				Game.getSeason(game.season),
+			]);
 			const data = {
 				gamepk_id: game.gamePk,
 				status: game.status.statusCode,
