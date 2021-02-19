@@ -8,10 +8,11 @@ apps:
     env:
       NODE_ENV: __ENV__
       NODE_PATH: src
-      APP_PORT: 3006
+      APP_PORT: 3004
       API_VERSION: 0.1
-      MYSQL_DB_HOST: __MYSQL_DB_HOST_
-      MYSQL_DB_PORT: 3306
+      MYSQL_DB_HOST: __MYSQL_DB_HOST__
+      MYSQL_DB_PORT: __MYSQL_DB_PORT__
       MYSQL_DB_USER: __MYSQL_DB_USER__
+      MYSQL_DB_PASSWORD: __MYSQL_DB_PASSWORD__
       MYSQL_DB_NAME: __MYSQL_DB_NAME__
       SENTRY: https://d6e5f1fab3844e9c85ff7295cb5bdf24@o516875.ingest.sentry.io/5623939

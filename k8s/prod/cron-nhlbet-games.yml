@@ -1,0 +1,18 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: nhlbet-cron-feed-games
+spec:
+  schedule: "0 5 * * *" # Indicates that the task should repeat every 10 min, every hour of every day of every month.
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: nhlbet-cron
+            image: buildpack-deps:curl
+            args:
+            - /bin/sh
+            - -ec
+            - curl http://nhlbet-cron:3004/feed/game
+          restartPolicy: Never

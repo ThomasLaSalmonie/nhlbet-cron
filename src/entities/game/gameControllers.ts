@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import * as moment from 'moment';
 import MotherBase from 'core/motherBase';
 import ApiResponse from 'helpers/apiResponse';
 import GameService from './gameService';
@@ -15,9 +15,13 @@ class GameControllers extends MotherBase {
 		} else {
 			if (startDate !== undefined) {
 				query.push(`startDate=${startDate}`);
+			} else {
+				query.push(`startDate=${moment().subtract(7, 'd').format('YYYY-MM-DD')}`);
 			}
 			if (endDate !== undefined) {
 				query.push(`endDate=${endDate}`);
+			} else {
+				query.push(`endDate=${moment().add(1, 'M').format('YYYY-MM-DD')}`);
 			}
 		}
 		const response = await axios({
@@ -34,6 +38,8 @@ class GameControllers extends MotherBase {
 			results.created += result.created;
 			results.updated += result.updated;
 		}
+		// tslint:disable-next-line:no-console
+		console.log(results);
 		return ApiResponse.createSuccess(results, 200).to(ctx);
 	}
 }

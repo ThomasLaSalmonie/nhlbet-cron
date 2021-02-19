@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+
+  echo "Set cluster prod environment"
+  sed -ie "s/__CLUSTERENV__/prod/g" ci/digitalocean/deploy
+
+  echo "Set database connexion environment db $MYSQL_DB_NAME"
+  sed -ie "s/__MYSQL_DB_NAME__/$MYSQL_DB_NAME/g" process.yml
+  sed -ie "s/__MYSQL_DB_USER__/$MYSQL_DB_USER/g" process.yml
+  sed -ie "s/__MYSQL_DB_PASSWORD__/$MYSQL_DB_PASSWORD/g" process.yml
+  sed -ie "s/__MYSQL_DB_HOST__/$MYSQL_DB_HOST/g" process.yml
+  sed -ie "s/__MYSQL_DB_PORT__/$MYSQL_DB_PORT/g" process.yml
+
+
+  echo "Set node env"
+  sed -ie "s/__ENV__/prod/g" process.yml
+}
+
+main "$@"
