@@ -1,6 +1,7 @@
 
 import { db } from 'config/mysql';
 import Citadelle from 'helpers/citadelle';
+import * as moment from 'moment';
 
 interface Game {
 	id?: number,
@@ -17,7 +18,7 @@ interface Game {
 	updated_at?: string,
 }
 
-class Game extends Citadelle{
+class Game extends Citadelle {
 	/**
 	 * Insert game
 	 * @param {Game} game
@@ -50,6 +51,47 @@ class Game extends Citadelle{
 			return season[insertId];
 		}
 		return result[0].id;
+	}
+
+	public static async getTodayGames(): Promise<Game[]> {
+		const query = `SELECT *
+			FROM game
+			WHERE game_date LIKE "%${moment().format('YYYY-MM-DD')}%"
+		`;
+		const [results]: any[] = await db.query(query);
+		return results;
+	}
+
+	public static async getGamesToUpdate(): Promise<Game[]> {
+		const query = `SELECT *
+			FROM game
+			WHERE status = 3 AND points_delivered = 0
+		`;
+		const [results]: any[] = await db.query(query);
+		return results;
+	}
+
+	public static async getBets(gameId: number): Promise<any[]> {
+		const query = `SELECT
+			bet.id,
+			home_amount,
+			away_amount,
+			user.id AS user_id,
+			user.nhlbetpoints AS user_points
+			FROM bet
+			LEFT JOIN user ON bet.user_id = user.id
+			WHERE game_id = ?
+		`;
+		const [results]: any[] = await db.query(query, [gameId]);
+		return results;
+	}
+
+	public static async updateBet(id: number, values: object) {
+		try {
+			await db.query(`UPDATE bet SET ? WHERE id = ?`, [values, id]);
+		} catch (e) {
+			throw(e);
+		}
 	}
 }
 

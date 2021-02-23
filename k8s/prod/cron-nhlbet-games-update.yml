@@ -1,9 +1,9 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: nhlbet-cron-feed-games
+  name: nhlbet-cron-feed-game-update
 spec:
-  schedule: "0 5 * * *"
+  schedule: "*/2 * * * *"
   jobTemplate:
     spec:
       template:
@@ -14,5 +14,5 @@ spec:
             args:
             - /bin/sh
             - -ec
-            - curl http://nhlbet-cron:3004/feed/game
+            - curl http://nhlbet-cron:3004/feed/game/update
           restartPolicy: Never
