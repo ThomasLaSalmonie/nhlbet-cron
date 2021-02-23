@@ -98,7 +98,7 @@ class GameControllers extends MotherBase {
 							|| (score.home_score < score.away_score && bet.home_amount < bet.away_amount)) {
 							await Promise.all([
 								User.update(bet.user_id, { nhlbetpoints: bet.user_points + potentialWin }),
-								Game.updateBet(bet.id, { status: 1 })
+								Game.updateBet(bet.id, { status: 1, amount_won: potentialWin })
 							])
 						} else {
 							await Game.updateBet(bet.id, { status: 2 });
