@@ -4,8 +4,8 @@ import MotherBase from 'core/motherBase';
 import ApiResponse from 'helpers/apiResponse';
 import GameService from './gameService';
 import Game from './gameModel';
-import { userInfo } from 'os';
 import User from 'entities/user/userModel';
+import Notification from 'entities/notification/notificationModel';
 
 
 class GameControllers extends MotherBase {
@@ -96,12 +96,32 @@ class GameControllers extends MotherBase {
 							: bet.away_amount * (totalAmount / totalAwayAmout);
 						if ((score.home_score > score.away_score && bet.home_amount > bet.away_amount)
 							|| (score.home_score < score.away_score && bet.home_amount < bet.away_amount)) {
+							const text = {
+								en: `You won the bet between ${data.gameData.teams.home.abbreviation} vs ${data.gameData.teams.away.abbreviation}. You won ${potentialWin} points.`,
+								fr: `Vous avez gagné votre pari entre ${data.gameData.teams.home.abbreviation} et ${data.gameData.teams.away.abbreviation}. Vous avez gagné ${potentialWin} points.`,
+							};
 							await Promise.all([
 								User.update(bet.user_id, { nhlbetpoints: bet.user_points + potentialWin }),
-								Game.updateBet(bet.id, { status: 1, amount_won: potentialWin })
+								Game.updateBet(bet.id, { status: 1, amount_won: potentialWin }),
+								Notification.insertNotification({
+									user_id: bet.user_id,
+									text: JSON.stringify(text),
+									text_color: 'green'
+								})
 							])
 						} else {
-							await Game.updateBet(bet.id, { status: 2 });
+							const text = {
+								en: `You lost the bet between ${data.gameData.teams.home.abbreviation} vs ${data.gameData.teams.away.abbreviation}.`,
+								fr: `Vous avez perdu votre pari entre ${data.gameData.teams.home.abbreviation} et ${data.gameData.teams.away.abbreviation}.`,
+							};
+							await Promise.all([
+								Game.updateBet(bet.id, { status: 2 }),
+								Notification.insertNotification({
+									user_id: bet.user_id,
+									text: JSON.stringify(text),
+									text_color: 'red'
+								})
+							]);
 						}
 					}
 					results.finished ++;
