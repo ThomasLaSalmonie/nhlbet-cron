@@ -56,7 +56,7 @@ class Game extends Citadelle {
 	public static async getTodayGames(): Promise<Game[]> {
 		const query = `SELECT *
 			FROM game
-			WHERE game_date LIKE "%${moment().format('YYYY-MM-DD')}%"
+			WHERE game_date LIKE '%${moment().format('YYYY-MM-DD')}%'
 		`;
 		const [results]: any[] = await db.query(query);
 		return results;
