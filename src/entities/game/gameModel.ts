@@ -65,7 +65,8 @@ class Game extends Citadelle {
 	public static async getGamesToUpdate(): Promise<Game[]> {
 		const query = `SELECT *
 			FROM game
-			WHERE status = 3 AND points_delivered = 0
+			WHERE points_delivered = 0
+				AND game_date <= NOW()
 		`;
 		const [results]: any[] = await db.query(query);
 		return results;

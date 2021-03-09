@@ -16,3 +16,4 @@ apps:
       MYSQL_DB_PASSWORD: __MYSQL_DB_PASSWORD__
       MYSQL_DB_NAME: __MYSQL_DB_NAME__
       SENTRY: https://d6e5f1fab3844e9c85ff7295cb5bdf24@o516875.ingest.sentry.io/5623939
+      TZ: America/Montreal

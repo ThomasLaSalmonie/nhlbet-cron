@@ -76,7 +76,7 @@ class GameControllers extends MotherBase {
 					away_score: data.liveData.linescore.teams.away.goals,
 					home_score: data.liveData.linescore.teams.home.goals,
 				};
-				if (data.gameData.status.statusCode === '3') {
+				if (data.gameData.status.statusCode !== '7') {
 					const gameData: Game = {
 						...game,
 						...score,
